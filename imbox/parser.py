@@ -119,6 +119,8 @@ def decode_content(message):
         return content.decode(charset, 'ignore')
     except AttributeError:
         return content
+    except LookupError:
+        return content.decode('utf-8','ignore')
 
 
 def parse_email(raw_email, policy=None):
