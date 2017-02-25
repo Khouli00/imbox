@@ -5,10 +5,12 @@ import logging
 logger = logging.getLogger(__name__)
 
 if PY3:
-    def str_encode(value='', encoding=None, errors='strict'):
+    def str_encode(value='', encoding=None, errors='ignore'):
         logger.debug("Encode str {} with and errors {}".format(value, encoding, errors))
-        return str(value, encoding, errors)
-
+        try:
+            return str(value, encoding, errors)
+        except UnicodeDecodeError:
+            return str(value, 'latin', errors)
     def str_decode(value='', encoding=None, errors='strict'):
         if isinstance(value, str):
             return bytes(value, encoding, errors).decode('utf-8')
