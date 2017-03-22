@@ -71,7 +71,12 @@ def decode_param(param):
             if type_ == 'Q':
                 value = quopri.decodestring(code)
             elif type_ == 'B':
-                value = base64.decodestring(code)
+                try:
+                    value = base64.decodestring(code)
+                except Exception as e:
+                    print(e)
+                    print('try to use as str')
+                    value = code
             value = str_encode(value, encoding)
             value_results.append(value)
             if value_results:

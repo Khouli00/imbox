@@ -11,6 +11,8 @@ if PY3:
             return str(value, encoding, errors)
         except UnicodeDecodeError:
             return str(value, 'latin', errors)
+        except TypeError :
+            return value
     def str_decode(value='', encoding=None, errors='strict'):
         if isinstance(value, str):
             return bytes(value, encoding, errors).decode('utf-8')
